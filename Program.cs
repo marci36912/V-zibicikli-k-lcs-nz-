@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +21,7 @@ namespace kolcsonzes
             Console.ReadLine();
         }
 
+        //megszamoljuk a tipusokat
         static void tizedik()
         {
             var tmp = lista.GroupBy(x => x.Azon).ToList();
@@ -41,12 +42,14 @@ namespace kolcsonzes
                 }
                 szam.Add(n);
             }
+            //erre nem tudok meg egyszerubb modszert sajnos
 
             for (int i = 0; i < tmp.Count; i++)
             {
                 Console.WriteLine($"{tmp[i].Key} - {szam[i]}");
             }
         }
+        //kiirjuk az F-eket egy txt-be
         static void kilencedik()
         {
             var f = lista.Where(x => x.Azon == 'F').ToList();
@@ -67,6 +70,7 @@ namespace kolcsonzes
                 Console.WriteLine(e.ToString());
             }
         }
+        //megszamoljuk, hogy mennyi volt a napi bevetel
         static void nyolcadik()
         {
             double ossz;
@@ -80,20 +84,27 @@ namespace kolcsonzes
 
             Console.WriteLine(c * 2400);
         }
-        //nem jo
+        //bekerunk egy idot, perce alakitjuk, majd a perce alakitott kezdeshez es vegzeshez hasonlitjuk
         static void hetedik()
         {
             string ido = Console.ReadLine();
             var tmp = ido.Split(':');
+            int E, V, K;
 
             foreach (var item in lista)
             {
-                if (item.Eo < int.Parse(tmp[0]) && item.Ep < int.Parse(tmp[1]) && item.Vo > int.Parse(tmp[0]) && item.Vp > int.Parse(tmp[1]))
-                {
+                E = (item.Eo * 60) + item.Ep;
+                V = (item.Vo * 60) + item.Vp;
+                K = (int.Parse(tmp[0]) * 60) + int.Parse(tmp[1]);
+
+                if (E <= K && V >= K)
+                {         
                     Console.WriteLine($"{item.Eo}:{item.Ep}-{item.Vo}:{item.Vp} {item.Nev}");
                 }
             }
         }
+
+        //bekerunk egy nevet, es ha a lista tartalmazza, akkor kiirjuk az ertekeket
         static void hatodik()
         {
             string nev = Console.ReadLine();
@@ -113,13 +124,17 @@ namespace kolcsonzes
                 Console.WriteLine("Nem volt.");
             }
         }
+        //kiirjuk az adatok darabszamat
         static void otodik() => Console.WriteLine(lista.Count);
+
+        //beolvassuk a txt tartalmat, majd eltaroljuk azokat egy listaba
         static void beolv()
         {
             try
             {
                 StreamReader sr = new StreamReader("kolcsonzesek.txt");
 
+                //elso sor nem adat meg!
                 sr.ReadLine();
 
                 while (!sr.EndOfStream)

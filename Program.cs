@@ -80,6 +80,7 @@ namespace kolcsonzes
 
             Console.WriteLine(c * 2400);
         }
+        //nem jo
         static void hetedik()
         {
             string ido = Console.ReadLine();

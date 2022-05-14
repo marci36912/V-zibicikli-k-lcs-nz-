@@ -24,7 +24,7 @@ namespace kolcsonzes
         //megszamoljuk a tipusokat
         static void tizedik()
         {
-            var tmp = lista.GroupBy(x => x.Azon).ToList();
+            /*var tmp = lista.GroupBy(x => x.Azon).ToList();
             tmp = tmp.OrderBy(x => x.Key).ToList();
 
             int n;
@@ -43,11 +43,19 @@ namespace kolcsonzes
                 szam.Add(n);
             }
             //erre nem tudok meg egyszerubb modszert sajnos
-
             for (int i = 0; i < tmp.Count; i++)
             {
                 Console.WriteLine($"{tmp[i].Key} - {szam[i]}");
             }
+            */
+            
+            foreach (var i in k.GroupBy(x=>x.azon).OrderBy(x=>x.Key))
+            {
+                Console.WriteLine($"    {i.Key} - {i.Count()}");
+            }
+
+            //Ez az egész feladat 4 sorban.
+            //Koszonom Tominak a segitseget ebben a feladatban!
         }
         //kiirjuk az F-eket egy txt-be
         static void kilencedik()
